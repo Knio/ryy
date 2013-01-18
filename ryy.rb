@@ -1,7 +1,7 @@
 
 module Ryy
-  def self.div *args
-    return Tag.new(:div, *args)
+  def self.div(*args)
+    Tag.new :div, *args
   end
 
   class Tag
@@ -23,16 +23,16 @@ module Ryy
     end
 
     def render_attributes
-      return @attributes.to_a.map { |k,v| " #{k}=\"#{v}\"" }.join ' '
+      @attributes.to_a.map { |k,v| " #{k}=\"#{v}\"" }.join ' '
     end
 
     def render
       s = ['<', @tag, render_attributes, '>']
-      return s.join ''
+      s.join ''
     end
 
     def to_s
-      return render
+      render
     end
   end
 
