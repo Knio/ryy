@@ -1,23 +1,18 @@
 require_relative 'ryy_tag.rb'
 
-
-
 module Ryy
 
-  module_function
-
-  def div(*args)
-    Tag.new :div, *args
-  end
-
   def self.tag(name, opts={})
-    p opts
+
     tag = Class.new(Tag) {
-      @name = name
+      def initialize(*args)
+        @name = name
+        super *args
+      end
     }
 
-    # bind(Ryy, name, tag)
-    send (name.to_s+'=').to_sym, tag
+    define_method(name) { |*a| tag.new *a }
+    module_eval { module_function name }
 
   end
 
@@ -131,4 +126,3 @@ module Ryy
   tag :menu
 
 end
-

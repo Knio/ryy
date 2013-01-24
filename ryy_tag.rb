@@ -2,8 +2,8 @@
 module Ryy
   private
   class Tag
-    def initialize(tag, *args)
-      @tag = tag
+    name = 'TAG'
+    def initialize(*args)
       @children = []
       @attributes = {}
       args.each { |arg|
@@ -24,7 +24,7 @@ module Ryy
     end
 
     def render
-      s = ['<', @tag, render_attributes, '>']
+      s = ['<', self.class.name, render_attributes, '>']
       s.join ''
     end
 
