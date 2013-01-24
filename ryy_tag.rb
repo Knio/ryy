@@ -1,8 +1,11 @@
 
 module Ryy
+
   private
+
   class Tag
-    name = 'TAG'
+    @name = 'TAG'
+    attr_reader :name
     def initialize(*args)
       @children = []
       @attributes = {}
@@ -24,7 +27,7 @@ module Ryy
     end
 
     def render
-      s = ['<', self.class.name, render_attributes, '>']
+      s = ['<', @name.to_s, render_attributes, '>']
       s.join ''
     end
 
@@ -33,4 +36,29 @@ module Ryy
     end
   end
 
+
+  def self.tag(name, opts={})
+
+    tag = Class.new(Tag) {
+      # @name = name
+      def initialize(name, opts, *args)
+        @name = name
+        @opts = opts
+        super *args
+      end
+    }
+
+    define_method(name) { |*a| tag.new name, opts, *a }
+    module_eval { module_function name }
+
+  end
+
 end
+
+
+# class Cat(object):
+#   species = 'Felis catus'
+
+# class Tiger(object):
+#   species = 'Panthera tigris'
+

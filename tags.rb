@@ -2,20 +2,6 @@ require_relative 'ryy_tag.rb'
 
 module Ryy
 
-  def self.tag(name, opts={})
-
-    tag = Class.new(Tag) {
-      def initialize(*args)
-        @name = name
-        super *args
-      end
-    }
-
-    define_method(name) { |*a| tag.new *a }
-    module_eval { module_function name }
-
-  end
-
   tag :html
   tag :head
   tag :title
